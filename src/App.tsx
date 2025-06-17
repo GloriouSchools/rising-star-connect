@@ -1,38 +1,38 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import ParentDashboard from "./pages/dashboards/ParentDashboard";
-import PupilDashboard from "./pages/dashboards/PupilDashboard";
-import TeacherDashboard from "./pages/dashboards/TeacherDashboard";
-import StaffDashboard from "./pages/dashboards/StaffDashboard";
-import GuestDashboard from "./pages/dashboards/GuestDashboard";
-import AdminDashboard from "./pages/dashboards/AdminDashboard";
+import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
+import { Toaster } from '@/components/ui/toaster';
+import { Toaster as Sonner } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { ProfileProvider } from '@/contexts/ProfileContext';
+import { NavigationProvider } from '@/contexts/NavigationContext';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import ScrollToTop from '@/components/ScrollToTop';
+import { AppRoutes } from '@/components/routing/AppRoutes';
+import './App.css';
+import './print.css';
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App: React.FC = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/dashboard/parent" element={<ParentDashboard />} />
-          <Route path="/dashboard/pupil" element={<PupilDashboard />} />
-          <Route path="/dashboard/teacher" element={<TeacherDashboard />} />
-          <Route path="/dashboard/non-teaching-staff" element={<StaffDashboard />} />
-          <Route path="/dashboard/guest" element={<GuestDashboard />} />
-          <Route path="/dashboard/admin" element={<AdminDashboard />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <ThemeProvider>
+        <Toaster />
+        <Sonner />
+        <AuthProvider>
+          <ProfileProvider>
+            <BrowserRouter>
+              <NavigationProvider>
+                <ScrollToTop />
+                <AppRoutes />
+              </NavigationProvider>
+            </BrowserRouter>
+          </ProfileProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
