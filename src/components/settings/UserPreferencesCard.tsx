@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { accessibility } from 'lucide-react';
+import { Accessibility } from 'lucide-react';
 
 interface UserPreferencesProps {
   settings: any;
@@ -17,7 +17,7 @@ export const UserPreferencesCard = ({ settings, updateSetting }: UserPreferences
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <accessibility className="h-5 w-5" />
+          <Accessibility className="h-5 w-5" />
           <span>User Preferences & Accessibility</span>
         </CardTitle>
       </CardHeader>
