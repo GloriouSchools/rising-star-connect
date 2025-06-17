@@ -26,12 +26,16 @@ import {
   Filter,
   CheckCircle,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  Edit
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { format } from 'date-fns';
+import { useToast } from '@/hooks/use-toast';
 import AnimatedInView from '@/components/AnimatedInView';
+import { AttendanceDialog } from '@/components/attendance/AttendanceDialog';
+import { exportAttendanceToCSV, exportAttendanceToJSON } from '@/utils/attendanceExport';
 
 interface AttendanceRecord {
   id: string;
@@ -48,9 +52,13 @@ interface AttendanceRecord {
 export const Attendance = () => {
   const { user } = useAuth();
   const { profileData } = useProfile();
+  const { toast } = useToast();
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedClass, setSelectedClass] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMode, setDialogMode] = useState<'edit' | 'mark'>('mark');
+  const [selectedRecord, setSelectedRecord] = useState<AttendanceRecord | undefined>();
   const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([
     {
       id: '1',
@@ -92,6 +100,50 @@ export const Attendance = () => {
       timeOut: '3:30 PM'
     }
   ]);
+
+  const handleMarkAttendance = () => {
+    setDialogMode('mark');
+    setSelectedRecord(undefined);
+    setShowDialog(true);
+  };
+
+  const handleEditRecord = (record: AttendanceRecord) => {
+    setDialogMode('edit');
+    setSelectedRecord(record);
+    setShowDialog(true);
+  };
+
+  const handleSaveRecord = (record: AttendanceRecord) => {
+    if (dialogMode === 'edit') {
+      setAttendanceRecords(prev => 
+        prev.map(r => r.id === record.id ? record : r)
+      );
+    } else {
+      setAttendanceRecords(prev => [...prev, record]);
+    }
+    setShowDialog(false);
+  };
+
+  const handleExport = () => {
+    const filteredData = filteredRecords;
+    
+    if (filteredData.length === 0) {
+      toast({
+        title: 'No Data to Export',
+        description: 'No attendance records match your current filters.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // For now, we'll export as CSV. You could add a dialog to choose format
+    exportAttendanceToCSV(filteredData);
+    
+    toast({
+      title: 'Export Successful',
+      description: `Exported ${filteredData.length} attendance records to CSV.`,
+    });
+  };
 
   const getStatusBadge = (status: AttendanceRecord['status']) => {
     const variants = {
@@ -151,11 +203,11 @@ export const Attendance = () => {
           </div>
           {canManageAttendance && (
             <div className="flex gap-2">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={handleExport}>
                 <Download className="h-4 w-4 mr-2" />
                 Export
               </Button>
-              <Button size="sm">
+              <Button size="sm" onClick={handleMarkAttendance}>
                 <UserCheck className="h-4 w-4 mr-2" />
                 Mark Attendance
               </Button>
@@ -330,7 +382,12 @@ export const Attendance = () => {
                     <TableCell>{record.remarks || '-'}</TableCell>
                     {canManageAttendance && (
                       <TableCell>
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleEditRecord(record)}
+                        >
+                          <Edit className="h-4 w-4 mr-1" />
                           Edit
                         </Button>
                       </TableCell>
@@ -350,6 +407,15 @@ export const Attendance = () => {
           </CardContent>
         </Card>
       </AnimatedInView>
+
+      {/* Attendance Dialog */}
+      <AttendanceDialog
+        isOpen={showDialog}
+        onClose={() => setShowDialog(false)}
+        onSave={handleSaveRecord}
+        record={selectedRecord}
+        mode={dialogMode}
+      />
     </div>
   );
 };
