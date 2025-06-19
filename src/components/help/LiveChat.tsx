@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { MessageSquare, User, Bot, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { User, Bot, X, Send, Paperclip, Smile } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -110,9 +110,12 @@ interface LiveChatProps {
 export const LiveChat: React.FC<LiveChatProps> = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentFlow, setCurrentFlow] = useState('welcome');
+  const [currentOptions, setCurrentOptions] = useState<Array<{ id: string; text: string; nextFlow: string }>>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -127,8 +130,8 @@ export const LiveChat: React.FC<LiveChatProps> = ({ isOpen, onClose }) => {
       setHasStarted(true);
       setMessages([]);
       setCurrentFlow('welcome');
+      setCurrentOptions([]);
       
-      // Simulate initial delay
       setTimeout(() => {
         addBotMessage('welcome');
       }, 1000);
@@ -141,101 +144,156 @@ export const LiveChat: React.FC<LiveChatProps> = ({ isOpen, onClose }) => {
 
     setIsTyping(true);
     
-    // Simulate typing delay
     setTimeout(() => {
       setIsTyping(false);
       
       const newMessage: Message = {
         id: Date.now().toString(),
-        type: flow.options ? 'options' : 'bot',
+        type: 'bot',
         content: flow.message,
-        timestamp: new Date(),
-        options: flow.options
+        timestamp: new Date()
       };
 
       setMessages(prev => [...prev, newMessage]);
-    }, 1500 + Math.random() * 1000); // Random delay between 1.5-2.5 seconds
+      
+      if (flow.options && !flow.isEnd) {
+        setCurrentOptions(flow.options);
+        
+        // Add options display message
+        setTimeout(() => {
+          const optionsText = flow.options!.map(option => `${option.id}. ${option.text}`).join('\n');
+          const optionsMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            type: 'bot',
+            content: `Please type the number of your choice:\n\n${optionsText}`,
+            timestamp: new Date()
+          };
+          setMessages(prev => [...prev, optionsMessage]);
+        }, 500);
+      } else {
+        setCurrentOptions([]);
+      }
+    }, 1500 + Math.random() * 1000);
   };
 
-  const handleOptionClick = (option: { id: string; text: string; nextFlow: string }) => {
-    // Add user message
+  const handleSendMessage = () => {
+    if (!inputMessage.trim()) return;
+
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
-      content: option.text,
+      content: inputMessage,
       timestamp: new Date()
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setCurrentFlow(option.nextFlow);
 
-    // Add bot response after delay
-    setTimeout(() => {
-      addBotMessage(option.nextFlow);
-    }, 500);
+    // Check if the message is a valid option number
+    const optionNumber = inputMessage.trim();
+    const selectedOption = currentOptions.find(option => option.id === optionNumber);
+
+    if (selectedOption) {
+      setCurrentFlow(selectedOption.nextFlow);
+      setCurrentOptions([]);
+      
+      setTimeout(() => {
+        addBotMessage(selectedOption.nextFlow);
+      }, 500);
+    } else if (currentOptions.length > 0) {
+      // Invalid option
+      setTimeout(() => {
+        const errorMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'bot',
+          content: `Sorry, "${optionNumber}" is not a valid option. Please choose from the available numbers (${currentOptions.map(opt => opt.id).join(', ')}).`,
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      }, 500);
+    } else {
+      // No current options, general response
+      setTimeout(() => {
+        const generalMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'bot',
+          content: "I'm here to help! To get started, please type 'help' or 'start' to see the available options.",
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, generalMessage]);
+        
+        // Reset to welcome flow
+        setTimeout(() => {
+          addBotMessage('welcome');
+        }, 1000);
+      }, 500);
+    }
+
+    setInputMessage('');
+    inputRef.current?.focus();
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
   };
 
   const handleClose = () => {
     setMessages([]);
     setHasStarted(false);
     setIsTyping(false);
+    setCurrentOptions([]);
+    setInputMessage('');
     onClose();
+  };
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-md h-[600px] flex flex-col p-0">
-        <DialogHeader className="px-4 py-3 border-b bg-blue-50">
+        {/* Header */}
+        <DialogHeader className="px-4 py-3 border-b bg-gradient-to-r from-blue-500 to-blue-600">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <User className="h-4 w-4 text-white" />
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                <User className="h-5 w-5 text-blue-600" />
               </div>
               <div>
-                <DialogTitle className="text-lg font-semibold">Live Support</DialogTitle>
-                <p className="text-sm text-green-600 font-medium">● Online</p>
+                <DialogTitle className="text-lg font-semibold text-white">Sarah</DialogTitle>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <p className="text-sm text-blue-100">Online</p>
+                </div>
               </div>
             </div>
-            <Button variant="ghost" size="sm" onClick={handleClose}>
+            <Button variant="ghost" size="sm" onClick={handleClose} className="text-white hover:bg-blue-400">
               <X className="h-4 w-4" />
             </Button>
           </div>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
           {messages.map((message) => (
-            <div key={message.id}>
-              {message.type === 'user' ? (
-                <div className="flex justify-end">
-                  <div className="bg-blue-600 text-white rounded-lg rounded-br-none px-3 py-2 max-w-[80%]">
-                    {message.content}
-                  </div>
+            <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[75%] ${message.type === 'user' ? 'order-2' : 'order-1'}`}>
+                <div className={`rounded-2xl px-4 py-2 ${
+                  message.type === 'user' 
+                    ? 'bg-blue-500 text-white rounded-br-md' 
+                    : 'bg-white border rounded-bl-md shadow-sm'
+                }`}>
+                  <div className="whitespace-pre-line text-sm">{message.content}</div>
                 </div>
-              ) : message.type === 'bot' ? (
-                <div className="flex justify-start">
-                  <div className="bg-white border rounded-lg rounded-bl-none px-3 py-2 max-w-[80%] shadow-sm">
-                    <div className="whitespace-pre-line">{message.content}</div>
-                  </div>
+                <div className={`text-xs text-gray-500 mt-1 ${message.type === 'user' ? 'text-right' : 'text-left'}`}>
+                  {formatTime(message.timestamp)}
                 </div>
-              ) : (
-                <div className="space-y-3">
-                  <div className="flex justify-start">
-                    <div className="bg-white border rounded-lg rounded-bl-none px-3 py-2 max-w-[80%] shadow-sm">
-                      <div className="whitespace-pre-line">{message.content}</div>
-                    </div>
-                  </div>
-                  <div className="grid gap-2">
-                    {message.options?.map((option) => (
-                      <Button
-                        key={option.id}
-                        variant="outline"
-                        className="justify-start text-left h-auto py-2 px-3 text-sm hover:bg-blue-50 hover:border-blue-300"
-                        onClick={() => handleOptionClick(option)}
-                      >
-                        {option.text}
-                      </Button>
-                    ))}
-                  </div>
+              </div>
+              {message.type === 'bot' && (
+                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2 order-0 flex-shrink-0">
+                  <Bot className="h-4 w-4 text-blue-600" />
                 </div>
               )}
             </div>
@@ -243,12 +301,14 @@ export const LiveChat: React.FC<LiveChatProps> = ({ isOpen, onClose }) => {
 
           {isTyping && (
             <div className="flex justify-start">
-              <div className="bg-white border rounded-lg rounded-bl-none px-3 py-2 shadow-sm">
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
+                <Bot className="h-4 w-4 text-blue-600" />
+              </div>
+              <div className="bg-white border rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  <span className="ml-2 text-sm text-gray-500">Sarah is typing...</span>
                 </div>
               </div>
             </div>
@@ -257,8 +317,40 @@ export const LiveChat: React.FC<LiveChatProps> = ({ isOpen, onClose }) => {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="p-3 border-t bg-white">
-          <div className="flex items-center gap-2 text-xs text-gray-500">
+        {/* Input Area */}
+        <div className="p-4 border-t bg-white">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="text-gray-500">
+              <Paperclip className="h-4 w-4" />
+            </Button>
+            <div className="flex-1 relative">
+              <Input
+                ref={inputRef}
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Type a message..."
+                className="pr-10 rounded-full border-gray-300 focus:border-blue-500"
+              />
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-500"
+              >
+                <Smile className="h-4 w-4" />
+              </Button>
+            </div>
+            <Button 
+              onClick={handleSendMessage}
+              disabled={!inputMessage.trim()}
+              size="sm"
+              className="bg-blue-500 hover:bg-blue-600 text-white rounded-full w-10 h-10 p-0"
+            >
+              <Send className="h-4 w-4" />
+            </Button>
+          </div>
+          
+          <div className="flex items-center gap-2 text-xs text-gray-500 mt-2">
             <Bot className="h-3 w-3" />
             <span>Powered by Springing Stars AI Assistant</span>
           </div>
