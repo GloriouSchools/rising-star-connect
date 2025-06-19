@@ -153,11 +153,11 @@ export const LiveChat: React.FC<LiveChatProps> = ({ isOpen, onClose }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md h-[600px] flex flex-col p-0">
+      <DialogContent className="max-w-sm w-full h-[500px] flex flex-col p-0 mx-auto my-auto">
         <ChatHeader onClose={handleClose} />
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+        <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-gray-50">
           {messages.map((message) => (
             <ChatMessage key={message.id} message={message} />
           ))}
