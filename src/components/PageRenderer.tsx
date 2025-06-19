@@ -25,6 +25,9 @@ import { Assignments } from './pages/Assignments';
 import { Results } from './pages/Results';
 import { Notifications } from './pages/Notifications';
 import { Attendance } from './pages/Attendance';
+import { Facilities } from './pages/Facilities';
+import { Communication } from './pages/Communication';
+import { Help } from './pages/Help';
 
 export const PageRenderer = () => {
   const { currentPage } = useNavigation();
@@ -80,6 +83,12 @@ export const PageRenderer = () => {
       return <Notifications />;
     case 'attendance':
       return <Attendance />;
+    case 'facilities':
+      return <Facilities />;
+    case 'communication':
+      return <Communication />;
+    case 'help':
+      return <Help />;
     default:
       return <div>Page not found</div>;
   }

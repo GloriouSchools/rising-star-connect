@@ -18,6 +18,9 @@ import { Assignments } from '@/components/pages/Assignments';
 import { Results } from '@/components/pages/Results';
 import { Notifications } from '@/components/pages/Notifications';
 import { Attendance } from '@/components/pages/Attendance';
+import { Facilities } from '@/components/pages/Facilities';
+import { Communication } from '@/components/pages/Communication';
+import { Help } from '@/components/pages/Help';
 import About from '@/pages/About';
 import WhyUs from '@/pages/WhyUs';
 import Contact from '@/pages/Contact';
@@ -183,6 +186,30 @@ export const AppRoutes: React.FC = () => {
             <ProtectedRoute>
               <Layout>
                 <Attendance />
+              </Layout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/facilities" element={
+            <ProtectedRoute>
+              <Layout>
+                <Facilities />
+              </Layout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/communication" element={
+            <ProtectedRoute>
+              <Layout>
+                <Communication />
+              </Layout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/help" element={
+            <ProtectedRoute>
+              <Layout>
+                <Help />
               </Layout>
             </ProtectedRoute>
           } />
