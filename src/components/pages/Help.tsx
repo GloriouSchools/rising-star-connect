@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/hooks/use-toast';
+import { LiveChat } from '@/components/help/LiveChat';
 import { 
   HelpCircle,
   MessageSquare,
@@ -38,6 +38,7 @@ export const Help = () => {
     email: '',
     message: ''
   });
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const faqData = [
     {
@@ -132,10 +133,7 @@ export const Help = () => {
   };
 
   const handleLiveChatClick = () => {
-    toast({
-      title: "Live Chat",
-      description: "Live chat feature will be available soon!",
-    });
+    setIsChatOpen(true);
   };
 
   const getStatusColor = (status: string) => {
@@ -497,6 +495,12 @@ export const Help = () => {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Live Chat Component */}
+      <LiveChat 
+        isOpen={isChatOpen} 
+        onClose={() => setIsChatOpen(false)} 
+      />
     </div>
   );
 };
