@@ -118,6 +118,26 @@ export const Help = () => {
     });
   };
 
+  const handlePhoneCall = () => {
+    window.open('tel:+256123456789', '_self');
+  };
+
+  const handleEmailClick = () => {
+    window.open('mailto:support@school.edu', '_self');
+  };
+
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent('Hello Springing Stars admin');
+    window.open(`https://wa.me/256123456789?text=${message}`, '_blank');
+  };
+
+  const handleLiveChatClick = () => {
+    toast({
+      title: "Live Chat",
+      description: "Live chat feature will be available soon!",
+    });
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'open': return 'bg-blue-100 text-blue-800';
@@ -155,7 +175,7 @@ export const Help = () => {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+        <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200" onClick={handleLiveChatClick}>
           <CardContent className="p-4 text-center">
             <MessageSquare className="h-8 w-8 text-blue-600 mx-auto mb-2" />
             <h3 className="font-semibold text-blue-900">Live Chat</h3>
@@ -163,7 +183,7 @@ export const Help = () => {
           </CardContent>
         </Card>
         
-        <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+        <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-green-50 to-green-100 border-green-200" onClick={handlePhoneCall}>
           <CardContent className="p-4 text-center">
             <Phone className="h-8 w-8 text-green-600 mx-auto mb-2" />
             <h3 className="font-semibold text-green-900">Call Support</h3>
@@ -171,7 +191,7 @@ export const Help = () => {
           </CardContent>
         </Card>
         
-        <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+        <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200" onClick={handleEmailClick}>
           <CardContent className="p-4 text-center">
             <Mail className="h-8 w-8 text-purple-600 mx-auto mb-2" />
             <h3 className="font-semibold text-purple-900">Email Us</h3>
@@ -375,7 +395,7 @@ export const Help = () => {
                 <CardTitle>Contact Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors" onClick={handlePhoneCall}>
                   <Phone className="h-5 w-5 text-blue-600" />
                   <div>
                     <p className="font-medium">Phone Support</p>
@@ -384,7 +404,7 @@ export const Help = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors" onClick={handleEmailClick}>
                   <Mail className="h-5 w-5 text-green-600" />
                   <div>
                     <p className="font-medium">Email Support</p>
@@ -393,12 +413,12 @@ export const Help = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <MessageSquare className="h-5 w-5 text-purple-600" />
+                <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors" onClick={handleWhatsAppClick}>
+                  <MessageSquare className="h-5 w-5 text-green-600" />
                   <div>
-                    <p className="font-medium">Live Chat</p>
-                    <p className="text-sm text-gray-600">Available 24/7</p>
-                    <p className="text-xs text-gray-500">Instant responses</p>
+                    <p className="font-medium">WhatsApp Support</p>
+                    <p className="text-sm text-gray-600">+256 123 456 789</p>
+                    <p className="text-xs text-gray-500">Quick responses via WhatsApp</p>
                   </div>
                 </div>
               </CardContent>
