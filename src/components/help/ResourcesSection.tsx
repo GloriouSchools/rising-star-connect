@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Video, FileText, Users, Lightbulb, Settings, AlertCircle, Download, ExternalLink, BookOpen } from 'lucide-react';
+import { Video, FileText, Users, Lightbulb, Settings, AlertCircle, Download, ExternalLink, BookOpen, Play } from 'lucide-react';
 
 const resources = [
   {
@@ -12,10 +12,10 @@ const resources = [
     icon: <Video className="h-8 w-8 text-blue-600" />,
     color: "bg-blue-50 border-blue-200",
     items: [
-      { name: "Getting Started Guide", duration: "5 min", url: "#" },
-      { name: "Using the Grade Book", duration: "8 min", url: "#" },
-      { name: "Submitting Assignments", duration: "6 min", url: "#" },
-      { name: "Parent Portal Overview", duration: "10 min", url: "#" }
+      { name: "Getting Started with School Portal", duration: "5:32", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", thumbnail: "/placeholder.svg" },
+      { name: "How to Submit Assignments Online", duration: "8:15", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", thumbnail: "/placeholder.svg" },
+      { name: "Parent Portal Navigation Guide", duration: "6:40", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", thumbnail: "/placeholder.svg" },
+      { name: "Understanding Your Grade Reports", duration: "10:22", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", thumbnail: "/placeholder.svg" }
     ],
     action: "Watch Tutorials"
   },
@@ -25,12 +25,12 @@ const resources = [
     icon: <FileText className="h-8 w-8 text-green-600" />,
     color: "bg-green-50 border-green-200",
     items: [
-      { name: "Student Handbook", size: "2.3 MB", url: "#" },
-      { name: "Parent Guide", size: "1.8 MB", url: "#" },
-      { name: "Teacher Manual", size: "4.1 MB", url: "#" },
-      { name: "Quick Reference Card", size: "0.5 MB", url: "#" }
+      { name: "Student Quick Start Guide", size: "2.3 MB", url: "#", type: "pdf" },
+      { name: "Parent Portal Manual", size: "1.8 MB", url: "#", type: "pdf" },
+      { name: "Teacher Dashboard Guide", size: "4.1 MB", url: "#", type: "pdf" },
+      { name: "Assignment Submission Steps", size: "0.5 MB", url: "#", type: "pdf" }
     ],
-    action: "Download PDFs"
+    action: "Download All"
   },
   {
     title: "Community Forum",
@@ -106,9 +106,33 @@ const getSeverityColor = (severity: string) => {
 };
 
 export const ResourcesSection: React.FC = () => {
-  const handleResourceClick = (title: string) => {
-    // Simulate opening resource - in real app this would navigate or open modals
-    console.log(`Opening ${title} resource`);
+  const handleResourceClick = (resource: any, item?: any) => {
+    console.log(`Opening ${resource.title} resource`, item);
+    
+    if (resource.title === "Video Tutorials" && item?.url) {
+      window.open(item.url, '_blank');
+    } else if (resource.title === "Downloadable Guides" && item?.url) {
+      // Simulate download
+      const link = document.createElement('a');
+      link.href = item.url;
+      link.download = item.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else if (resource.title === "Community Forum") {
+      window.open('https://discord.com/channels/1119885301872070706/1280461670979993613', '_blank');
+    } else {
+      console.log(`${resource.title} functionality coming soon`);
+    }
+  };
+
+  const handleItemClick = (resource: any, item: any) => {
+    if (resource.title === "Video Tutorials" && item.url) {
+      window.open(item.url, '_blank');
+    } else if (resource.title === "Downloadable Guides") {
+      // Simulate PDF download
+      console.log(`Downloading ${item.name}`);
+    }
   };
 
   return (
@@ -134,22 +158,25 @@ export const ResourcesSection: React.FC = () => {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 {resource.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="flex items-center justify-between p-2 bg-white rounded-lg border">
-                    <div className="flex-1">
+                  <div key={itemIndex} className="flex items-center justify-between p-2 bg-white rounded-lg border hover:bg-gray-50 transition-colors">
+                    <div className="flex-1 cursor-pointer" onClick={() => handleItemClick(resource, item)}>
                       <p className="text-sm font-medium">{item.name}</p>
                       <div className="flex items-center gap-2 mt-1">
                         {item.duration && (
                           <Badge variant="outline" className="text-xs">
+                            <Play className="h-3 w-3 mr-1" />
                             {item.duration}
                           </Badge>
                         )}
                         {item.size && (
                           <Badge variant="outline" className="text-xs">
+                            <FileText className="h-3 w-3 mr-1" />
                             {item.size}
                           </Badge>
                         )}
                         {item.members && (
                           <Badge variant="outline" className="text-xs">
+                            <Users className="h-3 w-3 mr-1" />
                             {item.members}
                           </Badge>
                         )}
@@ -176,15 +203,19 @@ export const ResourcesSection: React.FC = () => {
                         </p>
                       )}
                     </div>
-                    {(item.url || item.status === 'online') && (
-                      <Button variant="ghost" size="sm">
-                        {resource.title === "Downloadable Guides" ? (
-                          <Download className="h-4 w-4" />
-                        ) : (
-                          <ExternalLink className="h-4 w-4" />
-                        )}
-                      </Button>
-                    )}
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => handleItemClick(resource, item)}
+                    >
+                      {resource.title === "Downloadable Guides" ? (
+                        <Download className="h-4 w-4" />
+                      ) : resource.title === "Video Tutorials" ? (
+                        <Play className="h-4 w-4" />
+                      ) : (
+                        <ExternalLink className="h-4 w-4" />
+                      )}
+                    </Button>
                   </div>
                 ))}
               </div>
@@ -192,7 +223,7 @@ export const ResourcesSection: React.FC = () => {
               <Button 
                 className="w-full" 
                 variant="outline"
-                onClick={() => handleResourceClick(resource.title)}
+                onClick={() => handleResourceClick(resource)}
               >
                 {resource.action}
               </Button>
@@ -213,7 +244,10 @@ export const ResourcesSection: React.FC = () => {
             <Button variant="outline">
               Request Resource
             </Button>
-            <Button>
+            <Button onClick={() => {
+              const message = encodeURIComponent('Hi! I need help with additional resources for the Springing Stars platform.');
+              window.open(`https://wa.me/256123456789?text=${message}`, '_blank');
+            }}>
               Contact Support
             </Button>
           </div>

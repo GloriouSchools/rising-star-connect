@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { LiveChat } from '@/components/help/LiveChat';
 import { ContactActions } from '@/components/help/ContactActions';
 import { HelpTabs } from '@/components/help/HelpTabs';
+import { ContactSection } from '@/components/help/ContactSection';
 import { Clock } from 'lucide-react';
 
 export const Help = () => {
@@ -16,7 +17,9 @@ export const Help = () => {
   };
 
   const handleEmailClick = () => {
-    window.open('mailto:support@school.edu', '_self');
+    const subject = encodeURIComponent('Support Request - Springing Stars');
+    const body = encodeURIComponent('Hello,\n\nI need help with...\n\nBest regards,');
+    window.open(`mailto:support@school.edu?subject=${subject}&body=${body}`, '_self');
   };
 
   const handleLiveChatClick = () => {
@@ -48,6 +51,9 @@ export const Help = () => {
 
       {/* Main Content Tabs */}
       <HelpTabs />
+
+      {/* Contact Section */}
+      <ContactSection />
 
       {/* Live Chat Component */}
       <LiveChat 

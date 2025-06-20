@@ -14,6 +14,14 @@ export const ContactActions: React.FC<ContactActionsProps> = ({
   onPhoneCall,
   onEmailClick
 }) => {
+  const handleUserGuideClick = () => {
+    // Trigger the User Guide tab programmatically
+    const userGuideTab = document.querySelector('[value="guide"]') as HTMLButtonElement;
+    if (userGuideTab) {
+      userGuideTab.click();
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
       <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200" onClick={onLiveChatClick}>
@@ -40,7 +48,7 @@ export const ContactActions: React.FC<ContactActionsProps> = ({
         </CardContent>
       </Card>
       
-      <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
+      <Card className="hover:shadow-md transition-shadow cursor-pointer bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200" onClick={handleUserGuideClick}>
         <CardContent className="p-4 text-center">
           <Book className="h-8 w-8 text-orange-600 mx-auto mb-2" />
           <h3 className="font-semibold text-orange-900">User Guide</h3>
