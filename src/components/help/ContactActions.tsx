@@ -19,6 +19,16 @@ export const ContactActions: React.FC<ContactActionsProps> = ({
     const userGuideTab = document.querySelector('[value="guide"]') as HTMLButtonElement;
     if (userGuideTab) {
       userGuideTab.click();
+      // Scroll to the tab content after a short delay
+      setTimeout(() => {
+        const userGuideContent = document.querySelector('[data-state="active"][data-orientation="horizontal"]');
+        if (userGuideContent) {
+          userGuideContent.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 150);
     }
   };
 
