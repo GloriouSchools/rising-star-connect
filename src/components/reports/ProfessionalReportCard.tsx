@@ -1,13 +1,6 @@
-
 import React from 'react';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
-
-// Extend jsPDF type to include autoTable method
-interface ExtendedJsPDF extends jsPDF {
-  autoTable: (options: any) => jsPDF;
-  lastAutoTable: { finalY: number };
-}
+import autoTable from 'jspdf-autotable';
 
 interface Student {
   id: string;
@@ -89,7 +82,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
 
     const downloadReportCard = async () => {
       try {
-        const doc = new jsPDF() as ExtendedJsPDF;
+        const doc = new jsPDF();
         
         // Add school logo
         try {
@@ -187,7 +180,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
           grade.comment || 'N/A'
         ]);
 
-        doc.autoTable({
+        autoTable(doc, {
           startY: 135,
           head: [['Subject', 'Practical', 'Theory', 'Total', 'Max', 'Percentage', 'Grade', 'Points', 'Attendance', 'Remarks']],
           body: tableData,
@@ -250,7 +243,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
         doc.setTextColor(0, 51, 102);
         doc.text('GRADING SCALE', 15, finalY + 63);
         
-        (doc as any).autoTable({
+        autoTable(doc, {
           startY: finalY + 68,
           head: [['Grade', 'Range', 'Points', 'Description']],
           body: [
