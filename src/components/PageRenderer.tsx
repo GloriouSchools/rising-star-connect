@@ -28,7 +28,6 @@ import { Attendance } from './pages/Attendance';
 import { Facilities } from './pages/Facilities';
 import { Communication } from './pages/Communication';
 import { Help } from './pages/Help';
-import { Library } from './pages/Library';
 
 export const PageRenderer = () => {
   const { currentPage } = useNavigation();
@@ -90,8 +89,6 @@ export const PageRenderer = () => {
       return <Communication />;
     case 'help':
       return <Help />;
-    case 'library':
-      return <Library />;
     default:
       return <div>Page not found</div>;
   }

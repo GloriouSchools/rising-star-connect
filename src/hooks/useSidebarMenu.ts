@@ -98,12 +98,6 @@ export const useSidebarMenu = () => {
     return user.role === 'admin' || user.role === 'non-teaching';
   };
 
-  const shouldShowLibrary = () => {
-    if (!user) return false;
-    // Pupils and teachers can see library
-    return user.role === 'pupil' || user.role === 'teacher';
-  };
-
   const getUserRoleLabel = () => {
     switch (user?.role) {
       case 'pupil': return 'Student Portal';
@@ -153,7 +147,7 @@ export const useSidebarMenu = () => {
         'assignments', 
         'grades', 
         'timetable', 
-        ...(shouldShowLibrary() ? ['library'] : []),
+        'library', 
         'communication', 
         'help'
       ],
@@ -168,7 +162,6 @@ export const useSidebarMenu = () => {
         'results', 
         'timetable', 
         'attendance', 
-        ...(shouldShowLibrary() ? ['library'] : []),
         'communication', 
         'help'
       ],
