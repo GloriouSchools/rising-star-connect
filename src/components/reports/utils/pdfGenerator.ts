@@ -95,7 +95,7 @@ export const generatePDFReportCard = async (student: Student, grades: Grade[], a
     const doc = new jsPDF();
     
     // Load logo and create watermark
-    const logoBase64 = await loadImageAsBase64('https://springingstars.ac.ug/wp-content/uploads/2023/04/logo.png');
+    const logoBase64 = await loadImageAsBase64('https://gloriouschools.github.io/rising-star-connect/schoologo.png');
     const watermarkBase64 = createWatermark();
 
     // Add watermark to background
