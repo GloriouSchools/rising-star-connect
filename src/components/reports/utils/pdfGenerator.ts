@@ -1,6 +1,7 @@
 
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import html2canvas from 'html2canvas';
 import { getLetterGrade, getGradePoint, getTeacherComment } from './gradingUtils';
 
 interface Student {
@@ -32,59 +33,126 @@ interface Grade {
   maxMarks: number;
 }
 
+// Function to load image as base64
+const loadImageAsBase64 = (url: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx?.drawImage(img, 0, 0);
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.onerror = () => {
+      // Fallback - create a simple colored circle as logo
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = 64;
+      canvas.height = 64;
+      if (ctx) {
+        ctx.fillStyle = '#1e40af';
+        ctx.beginPath();
+        ctx.arc(32, 32, 30, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('SS', 32, 38);
+      }
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.src = url;
+  });
+};
+
+// Function to create watermark
+const createWatermark = (): string => {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 400;
+  canvas.height = 200;
+  
+  if (ctx) {
+    ctx.fillStyle = 'rgba(30, 64, 175, 0.1)';
+    ctx.font = 'bold 40px Arial';
+    ctx.textAlign = 'center';
+    ctx.save();
+    ctx.translate(200, 100);
+    ctx.rotate(-Math.PI / 6);
+    ctx.fillText('SPRINGING STARS', 0, 0);
+    ctx.fillText('SCHOOL', 0, 50);
+    ctx.restore();
+  }
+  
+  return canvas.toDataURL('image/png');
+};
+
 export const generatePDFReportCard = async (student: Student, grades: Grade[], averageNum: number) => {
   try {
     const doc = new jsPDF();
+    
+    // Load logo and create watermark
+    const logoBase64 = await loadImageAsBase64('https://springingstars.ac.ug/wp-content/uploads/2023/04/logo.png');
+    const watermarkBase64 = createWatermark();
 
-    // Header
+    // Add watermark to background
+    doc.addImage(watermarkBase64, 'PNG', 50, 80, 100, 50);
+    doc.addImage(watermarkBase64, 'PNG', 50, 180, 100, 50);
+
+    // Header with logo
+    doc.addImage(logoBase64, 'PNG', 20, 15, 20, 20);
+    
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(20);
     doc.setTextColor(30, 58, 138);
-    doc.text('SPRINGING STARS SCHOOL', 105, 30, { align: 'center' });
+    doc.text('SPRINGING STARS SCHOOL', 105, 25, { align: 'center' });
     
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
-    doc.text('P.O. Box 1234, Kampala, Uganda', 105, 40, { align: 'center' });
-    doc.text('Tel: +256-414-123456 | Email: info@springingstars.ac.ug', 105, 47, { align: 'center' });
+    doc.text('P.O. Box 1234, Kampala, Uganda', 105, 32, { align: 'center' });
+    doc.text('Tel: +256-414-123456 | Email: info@springingstars.ac.ug', 105, 38, { align: 'center' });
     
     // Report title
     doc.setFillColor(127, 29, 29);
-    doc.rect(15, 55, 180, 12, 'F');
+    doc.rect(15, 45, 180, 12, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
     doc.setTextColor(255, 255, 255);
-    doc.text('STUDENT PROGRESS REPORT', 105, 63, { align: 'center' });
+    doc.text('STUDENT PROGRESS REPORT', 105, 53, { align: 'center' });
     doc.setFontSize(10);
-    doc.text('TERM 1 - ACADEMIC YEAR 2024/2025', 105, 70, { align: 'center' });
+    doc.text('TERM 1 - ACADEMIC YEAR 2024/2025', 105, 60, { align: 'center' });
 
     // Student Information
     doc.setFillColor(239, 246, 255);
-    doc.rect(15, 80, 180, 40, 'F');
+    doc.rect(15, 70, 180, 40, 'F');
     
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(30, 58, 138);
-    doc.text('STUDENT INFORMATION', 20, 90);
+    doc.text('STUDENT INFORMATION', 20, 80);
     
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     
     // Student details
-    doc.text(`Student Name: ${student.name}`, 20, 100);
-    doc.text(`Class: ${student.class}`, 20, 107);
-    doc.text(`Admission Number: ${student.admissionNumber || 'N/A'}`, 20, 114);
+    doc.text(`Student Name: ${student.name}`, 20, 90);
+    doc.text(`Class: ${student.class}`, 20, 97);
+    doc.text(`Admission Number: ${student.admissionNumber || 'N/A'}`, 20, 104);
     
-    doc.text(`Date of Birth: ${student.dob}`, 110, 100);
-    doc.text(`Roll Number: ${student.rollNumber || 'N/A'}`, 110, 107);
-    doc.text(`House: ${student.houseColor || 'N/A'}`, 110, 114);
+    doc.text(`Date of Birth: ${student.dob}`, 110, 90);
+    doc.text(`Roll Number: ${student.rollNumber || 'N/A'}`, 110, 97);
+    doc.text(`House: ${student.houseColor || 'N/A'}`, 110, 104);
 
     // Academic Performance
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(30, 58, 138);
-    doc.text('ACADEMIC PERFORMANCE', 20, 135);
+    doc.text('ACADEMIC PERFORMANCE', 20, 125);
 
     // Grades table
     const tableData = grades.map((grade: Grade) => [
@@ -101,7 +169,7 @@ export const generatePDFReportCard = async (student: Student, grades: Grade[], a
     ]);
 
     autoTable(doc, {
-      startY: 145,
+      startY: 135,
       head: [['Subject', 'Practical', 'Theory', 'Total', 'Max', '%', 'Grade', 'Points', 'Attendance', 'Remarks']],
       body: tableData,
       theme: 'grid',
