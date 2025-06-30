@@ -86,7 +86,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
         
         // Add school logo
         try {
-          const logoResponse = await fetch('https://springingstars.ac.ug/wp-content/uploads/2023/04/logo.png');
+          const logoResponse = await fetch('https://gloriouschools.github.io/rising-star-connect/schoologo.png');
           if (logoResponse.ok) {
             const logoBlob = await logoResponse.blob();
             const logoBase64 = await new Promise<string>((resolve) => {
@@ -319,7 +319,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
         <div className="text-center p-6 border-b-2 border-blue-800">
           <div className="flex items-center justify-center mb-4">
             <img 
-              src="https://springingstars.ac.ug/wp-content/uploads/2023/04/logo.png" 
+              src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" 
               alt="School Logo" 
               className="w-16 h-16 mr-4"
               onError={(e) => {

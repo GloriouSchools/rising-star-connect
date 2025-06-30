@@ -39,7 +39,7 @@ export const ReportCard = ({ student, term, studentClass, subjects, totalMarks, 
       {/* Watermark */}
       <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
         <img 
-          src="https://springingstars.ac.ug/wp-content/uploads/2023/04/logo.png" 
+          src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" 
           alt="Watermark" 
           className="w-96 h-96 object-contain"
         />
@@ -49,7 +49,7 @@ export const ReportCard = ({ student, term, studentClass, subjects, totalMarks, 
       <header className="text-center mb-8 relative z-10">
         <div className="flex items-center justify-center gap-4 mb-4">
           <img 
-            src="https://springingstars.ac.ug/wp-content/uploads/2023/04/logo.png" 
+            src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" 
             alt="Springing Stars Logo" 
             className="h-20 w-20 object-contain"
           />
