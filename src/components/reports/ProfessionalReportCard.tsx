@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -121,11 +120,18 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
           console.log('Logo loading failed, continuing without logo');
         }
 
-        // Add watermark logo in background
+        // Add watermark logo in background with correct opacity handling
         if (logoAdded) {
           doc.saveGraphicsState();
-          doc.setGState(new doc.GState({opacity: 0.05}));
-          doc.addImage('https://springingstars.ac.ug/wp-content/uploads/2023/04/logo.png', 'PNG', 50, 120, 100, 100);
+          // Set opacity using the correct method
+          doc.setFillColor(200, 200, 200);
+          doc.setGlobalAlpha(0.05);
+          try {
+            doc.addImage('https://springingstars.ac.ug/wp-content/uploads/2023/04/logo.png', 'PNG', 50, 120, 100, 100);
+          } catch (error) {
+            console.log('Could not add watermark image');
+          }
+          doc.setGlobalAlpha(1.0);
           doc.restoreGraphicsState();
         }
 
