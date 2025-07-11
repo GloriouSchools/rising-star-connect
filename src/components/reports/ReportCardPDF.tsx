@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
 
@@ -42,14 +43,6 @@ const styles = StyleSheet.create({
     padding: 30,
     fontFamily: 'Helvetica',
     fontSize: 10,
-  },
-  watermark: {
-    position: 'absolute',
-    top: '30%',
-    left: '25%',
-    opacity: 0.05,
-    width: 300,
-    height: 300,
   },
   header: {
     textAlign: 'center',
@@ -273,8 +266,6 @@ const styles = StyleSheet.create({
 export const ReportCardPDF = ({ student, term, studentClass, subjects, totalMarks, average, overallGrade }: ReportCardPDFProps) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <Image style={styles.watermark} src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" />
-      
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerContent}>
@@ -394,4 +385,4 @@ export const ReportCardPDF = ({ student, term, studentClass, subjects, totalMark
       </Text>
     </Page>
   </Document>
-); 
+);
