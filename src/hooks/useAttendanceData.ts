@@ -19,7 +19,7 @@ const STORAGE_KEY = 'attendance_records';
 
 // Generate attendance records from real student data
 const generateDefaultRecords = (): AttendanceRecord[] => {
-  const students = localStudentDatabase.users.slice(0, 20); // First 20 students for demo
+  const students = localStudentDatabase.users; // All students
   const today = format(new Date(), 'yyyy-MM-dd');
   const statuses: AttendanceRecord['status'][] = ['present', 'present', 'present', 'late', 'absent'];
   
