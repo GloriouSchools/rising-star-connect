@@ -29,7 +29,7 @@ const generateDefaultRecords = (): AttendanceRecord[] => {
       id: (index + 1).toString(),
       studentId: student.id,
       studentName: student.name,
-      class: student.class.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase()),
+      class: student.class, // Use the original class name without transformation
       date: today,
       status,
       timeIn: status === 'present' || status === 'late' ? '8:00 AM' : undefined,
