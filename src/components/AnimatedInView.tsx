@@ -12,49 +12,103 @@ interface AnimatedInViewProps {
 
 const animationVariants: Record<string, Variants> = {
   slideLeft: {
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
-    hidden: { opacity: 0, x: -50 }
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { 
+        duration: 0.3,
+        ease: "easeOut"
+      } 
+    },
+    hidden: { opacity: 0, x: -20 }
   },
   slideRight: {
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
-    hidden: { opacity: 0, x: 50 }
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { 
+        duration: 0.3,
+        ease: "easeOut"
+      } 
+    },
+    hidden: { opacity: 0, x: 20 }
   },
   slideUp: {
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
-    hidden: { opacity: 0, y: 30 }
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.3,
+        ease: "easeOut"
+      } 
+    },
+    hidden: { opacity: 0, y: 15 }
   },
   slideDown: {
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
-    hidden: { opacity: 0, y: -30 }
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.3,
+        ease: "easeOut"
+      } 
+    },
+    hidden: { opacity: 0, y: -15 }
   },
   zoomIn: {
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.68, -0.55, 0.265, 1.55] } },
-    hidden: { opacity: 0, scale: 0.8 }
-  },
-  zoomOut: {
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
-    hidden: { opacity: 0, scale: 1.2 }
-  },
-  fadeIn: {
-    visible: { opacity: 1, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } },
-    hidden: { opacity: 0 }
-  },
-  flipIn: {
-    visible: { opacity: 1, rotateY: 0, transition: { duration: 0.7, ease: [0.68, -0.55, 0.265, 1.55] } },
-    hidden: { opacity: 0, rotateY: -90 }
-  },
-  bounceIn: {
     visible: { 
       opacity: 1, 
       scale: 1, 
       transition: { 
-        duration: 0.6, 
-        type: "spring",
-        damping: 10,
-        stiffness: 100
+        duration: 0.25,
+        ease: "easeOut"
       } 
     },
-    hidden: { opacity: 0, scale: 0.3 }
+    hidden: { opacity: 0, scale: 0.95 }
+  },
+  zoomOut: {
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      transition: { 
+        duration: 0.25,
+        ease: "easeOut"
+      } 
+    },
+    hidden: { opacity: 0, scale: 1.05 }
+  },
+  fadeIn: {
+    visible: { 
+      opacity: 1, 
+      transition: { 
+        duration: 0.4,
+        ease: "easeOut"
+      } 
+    },
+    hidden: { opacity: 0 }
+  },
+  flipIn: {
+    visible: { 
+      opacity: 1, 
+      rotateY: 0, 
+      transition: { 
+        duration: 0.4,
+        ease: "easeOut"
+      } 
+    },
+    hidden: { opacity: 0, rotateY: -45 }
+  },
+  bounceIn: {
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      transition: { 
+        duration: 0.35,
+        ease: "easeOut"
+      } 
+    },
+    hidden: { opacity: 0, scale: 0.9, y: 10 }
   }
 };
 
