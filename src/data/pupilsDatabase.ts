@@ -9,7 +9,6 @@ export interface PupilRecord {
   address: string;
   fees: 'Paid' | 'Pending' | 'Overdue';
   status: 'active' | 'inactive' | 'suspended' | 'archived' | 'expelled';
-  photo?: string; // Optional - some pupils may not have photos
   dateOfBirth: string;
   gender: 'Male' | 'Female';
   admissionDate: string;
@@ -27,7 +26,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '123 Kampala District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/ADRIANA LIAM MIRIMU.JPG',
     dateOfBirth: '2014-03-15',
     gender: 'Female',
     admissionDate: '2022-01-10'
@@ -43,7 +41,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '456 Entebbe District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/AHIMBISIBWE EMMANUEL.JPG',
     dateOfBirth: '2012-07-22',
     gender: 'Male',
     admissionDate: '2020-02-15'
@@ -59,7 +56,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '789 Mukono District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/ALBA PROMISE KOBUSINGYE.JPG',
     dateOfBirth: '2015-11-08',
     gender: 'Female',
     admissionDate: '2023-01-20'
@@ -75,7 +71,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '321 Jinja District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/ALBARA-U YAHAYA MUSOKE.JPG',
     dateOfBirth: '2013-05-12',
     gender: 'Male',
     admissionDate: '2021-09-05'
@@ -91,7 +86,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '654 Masaka District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/AMANYABYONA JOSEPH COLLINS.JPG',
     dateOfBirth: '2011-09-30',
     gender: 'Male',
     admissionDate: '2019-01-15'
@@ -107,7 +101,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '987 Mbarara District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/ANKUNDA LIAM.JPG',
     dateOfBirth: '2016-01-18',
     gender: 'Male',
     admissionDate: '2024-01-10'
@@ -123,7 +116,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '159 Fort Portal District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/ATUNGIRE ELIJAH.JPG',
     dateOfBirth: '2010-12-03',
     gender: 'Male',
     admissionDate: '2018-02-20'
@@ -139,7 +131,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '753 Gulu District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/AVA MALAIKA DHAMUZUNGU.JPG',
     dateOfBirth: '2014-06-25',
     gender: 'Female',
     admissionDate: '2022-03-12'
@@ -155,7 +146,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '426 Lira District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/BAGABE ABEL.JPG',
     dateOfBirth: '2013-04-14',
     gender: 'Male',
     admissionDate: '2021-01-25'
@@ -171,7 +161,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '891 Soroti District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/BIRUNGI HIDAYA.JPG',
     dateOfBirth: '2015-08-07',
     gender: 'Female',
     admissionDate: '2023-02-18'
@@ -187,7 +176,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '234 Mbale District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/BWOGI DEIGHTON.JPG',
     dateOfBirth: '2012-10-19',
     gender: 'Male',
     admissionDate: '2020-09-08'
@@ -203,7 +191,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '567 Kabale District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/BYAMUKAMA MATTHEW CHARLES.JPG',
     dateOfBirth: '2011-02-28',
     gender: 'Male',
     admissionDate: '2019-08-15'
@@ -219,7 +206,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '890 Kampala District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/DHEDONGA REHEMA MARINA.JPG',
     dateOfBirth: '2016-05-11',
     gender: 'Female',
     admissionDate: '2024-02-05'
@@ -235,7 +221,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '123 Entebbe District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/EGLAH ABI GARA.JPG',
     dateOfBirth: '2014-09-16',
     gender: 'Female',
     admissionDate: '2022-01-30'
@@ -251,7 +236,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '456 Mukono District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/ELI TIMAO EDUBE.JPG',
     dateOfBirth: '2010-07-04',
     gender: 'Male',
     admissionDate: '2018-03-22'
@@ -267,7 +251,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '789 Jinja District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/FAVOUR GIDEON MAYIGA.JPG',
     dateOfBirth: '2013-11-21',
     gender: 'Male',
     admissionDate: '2021-04-18'
@@ -283,7 +266,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '321 Masaka District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/ITUNGO LIONEL RUTA.JPG',
     dateOfBirth: '2015-03-09',
     gender: 'Male',
     admissionDate: '2023-01-15'
@@ -299,7 +281,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '654 Mbarara District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/JAKE WILLIAM KATENDE.JPG',
     dateOfBirth: '2012-12-13',
     gender: 'Male',
     admissionDate: '2020-05-10'
@@ -315,7 +296,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '987 Fort Portal District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/JEAN BRIGHT  JOOGA.JPG',
     dateOfBirth: '2011-08-26',
     gender: 'Male',
     admissionDate: '2019-02-28'
@@ -331,7 +311,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '159 Gulu District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/JEAN PETER DDAMULIRA.JPG',
     dateOfBirth: '2016-04-02',
     gender: 'Male',
     admissionDate: '2024-01-22'
@@ -347,7 +326,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '753 Lira District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/JEDIDIAH KAHUMA KAZOOBA.JPG',
     dateOfBirth: '2014-01-17',
     gender: 'Male',
     admissionDate: '2022-09-12'
@@ -363,7 +341,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '426 Soroti District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/KALULE VICTOR LEANDER.JPG',
     dateOfBirth: '2010-06-05',
     gender: 'Male',
     admissionDate: '2018-01-08'
@@ -379,7 +356,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '891 Mbale District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/KATENDE JOSIAH CHARLES.JPG',
     dateOfBirth: '2013-10-23',
     gender: 'Male',
     admissionDate: '2021-03-15'
@@ -395,7 +371,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '234 Kabale District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/KATONGOLE GERTRUDE.JPG',
     dateOfBirth: '2015-02-14',
     gender: 'Female',
     admissionDate: '2023-02-20'
@@ -411,7 +386,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '234 Kabale District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/KATONGOLE MONA.JPG',
     dateOfBirth: '2012-05-08',
     gender: 'Female',
     admissionDate: '2020-01-12'
@@ -427,7 +401,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '567 Kampala District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/KATUMBA DALTON SURPRISE.JPG',
     dateOfBirth: '2011-09-12',
     gender: 'Male',
     admissionDate: '2019-04-25'
@@ -443,7 +416,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '890 Entebbe District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/KAWEESI JAYDEN HOPE.JPG',
     dateOfBirth: '2016-07-30',
     gender: 'Male',
     admissionDate: '2024-02-14'
@@ -459,7 +431,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '123 Mukono District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/KIJJAMBU MARK MORGAN.JPG',
     dateOfBirth: '2014-11-18',
     gender: 'Male',
     admissionDate: '2022-08-20'
@@ -475,7 +446,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '456 Jinja District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/KIRABO BRYSON KYLE.JPG',
     dateOfBirth: '2010-03-06',
     gender: 'Male',
     admissionDate: '2018-09-10'
@@ -491,7 +461,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '789 Masaka District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/KOBUFURA ASHLEY KRYSTEN.JPG',
     dateOfBirth: '2013-08-14',
     gender: 'Female',
     admissionDate: '2021-01-18'
@@ -507,7 +476,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '321 Mbarara District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/KRYSTABELL ARIANA WAVAMUNNO.JPG',
     dateOfBirth: '2015-12-01',
     gender: 'Female',
     admissionDate: '2023-03-05'
@@ -523,7 +491,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '654 Fort Portal District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/KUKUNDA KIRSTEN.JPG',
     dateOfBirth: '2012-04-27',
     gender: 'Female',
     admissionDate: '2020-07-12'
@@ -539,7 +506,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '987 Gulu District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/LEVI GATAALI MUZIMA.JPG',
     dateOfBirth: '2011-01-15',
     gender: 'Male',
     admissionDate: '2019-09-08'
@@ -555,7 +521,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '159 Lira District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/LUBEGA KERON.JPG',
     dateOfBirth: '2016-06-22',
     gender: 'Male',
     admissionDate: '2024-01-08'
@@ -571,7 +536,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '753 Soroti District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/MATSIKO DAN.JPG',
     dateOfBirth: '2014-10-10',
     gender: 'Male',
     admissionDate: '2022-02-15'
@@ -587,7 +551,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '426 Mbale District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/MUGENYI CALVIN.JPG',
     dateOfBirth: '2010-02-03',
     gender: 'Male',
     admissionDate: '2018-05-20'
@@ -603,7 +566,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '891 Kabale District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/MUKISA JESSE.JPG',
     dateOfBirth: '2013-07-19',
     gender: 'Male',
     admissionDate: '2021-09-05'
@@ -619,7 +581,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '234 Kampala District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/MUKULA ODYSSEUS BRIDGEOUS.JPG',
     dateOfBirth: '2015-05-25',
     gender: 'Male',
     admissionDate: '2023-01-10'
@@ -635,7 +596,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '567 Entebbe District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/MULUNGI ADONAI.JPG',
     dateOfBirth: '2012-09-11',
     gender: 'Male',
     admissionDate: '2020-03-18'
@@ -651,7 +611,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '890 Mukono District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/MULWANA BERNICE.JPG',
     dateOfBirth: '2011-11-28',
     gender: 'Female',
     admissionDate: '2019-01-22'
@@ -667,7 +626,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '123 Jinja District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/MUTEBI HAFIZU KIGONGO.JPG',
     dateOfBirth: '2016-08-16',
     gender: 'Male',
     admissionDate: '2024-02-28'
@@ -683,7 +641,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '456 Masaka District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/MUTYABA KERON.JPG',
     dateOfBirth: '2014-04-12',
     gender: 'Male',
     admissionDate: '2022-05-15'
@@ -699,7 +656,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '789 Mbarara District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/MUWANGUZI ISRAEL.JPG',
     dateOfBirth: '2010-12-07',
     gender: 'Male',
     admissionDate: '2018-08-12'
@@ -715,7 +671,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '321 Fort Portal District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/MWIZA ATALIA ABRIELLE.JPG',
     dateOfBirth: '2013-01-24',
     gender: 'Female',
     admissionDate: '2021-06-10'
@@ -731,7 +686,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '321 Fort Portal District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/MWIZA MARTHA KIMBERLY.JPG',
     dateOfBirth: '2015-06-18',
     gender: 'Female',
     admissionDate: '2023-02-05'
@@ -747,7 +701,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '654 Gulu District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/NABUKENYA SAMANTHA.JPG',
     dateOfBirth: '2012-03-13',
     gender: 'Female',
     admissionDate: '2020-09-20'
@@ -763,7 +716,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '987 Lira District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NABUULE ELIANA MALAIKA KAYE.JPG',
     dateOfBirth: '2011-10-05',
     gender: 'Female',
     admissionDate: '2019-03-12'
@@ -779,7 +731,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '159 Soroti District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/NABUYONDO NAIRAH.JPG',
     dateOfBirth: '2016-02-29',
     gender: 'Female',
     admissionDate: '2024-01-15'
@@ -795,7 +746,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '753 Mbale District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NAKADDU ELLYVICK.JPG',
     dateOfBirth: '2014-08-21',
     gender: 'Female',
     admissionDate: '2022-04-08'
@@ -811,7 +761,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '426 Kabale District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/NAKAMATTE NORAH CHRISTINE.JPG',
     dateOfBirth: '2010-05-17',
     gender: 'Female',
     admissionDate: '2018-02-25'
@@ -827,7 +776,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '891 Kampala District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NAKANWAGI JEAN ALBA.JPG',
     dateOfBirth: '2013-12-09',
     gender: 'Female',
     admissionDate: '2021-08-18'
@@ -843,7 +791,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '234 Entebbe District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/NAKAYIWA ESTHER.JPG',
     dateOfBirth: '2015-07-14',
     gender: 'Female',
     admissionDate: '2023-03-20'
@@ -859,7 +806,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '567 Mukono District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NAKITTO RASHIMAH.JPG',
     dateOfBirth: '2012-11-02',
     gender: 'Female',
     admissionDate: '2020-01-28'
@@ -875,7 +821,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '890 Jinja District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/NALUBOWA ALLISON JULIET.JPG',
     dateOfBirth: '2011-04-20',
     gender: 'Female',
     admissionDate: '2019-07-15'
@@ -891,7 +836,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '123 Masaka District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NALUTAAYA PETRONILLAH.JPG',
     dateOfBirth: '2016-09-08',
     gender: 'Female',
     admissionDate: '2024-03-12'
@@ -907,7 +851,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '456 Mbarara District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/NAMAKULA SOPHIA.JPG',
     dateOfBirth: '2014-01-26',
     gender: 'Female',
     admissionDate: '2022-09-05'
@@ -923,7 +866,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '789 Fort Portal District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NAMBAJJWE VALERIA.JPG',
     dateOfBirth: '2010-06-14',
     gender: 'Female',
     admissionDate: '2018-04-20'
@@ -939,7 +881,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '321 Gulu District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/NANSUBUGA THEO ELSIE.JPG',
     dateOfBirth: '2013-05-31',
     gender: 'Female',
     admissionDate: '2021-02-18'
@@ -955,7 +896,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '654 Lira District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NATUMI SHAHID PAPA.JPG',
     dateOfBirth: '2015-10-23',
     gender: 'Male',
     admissionDate: '2023-01-25'
@@ -971,7 +911,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '987 Soroti District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/NAZEBA LEO.JPG',
     dateOfBirth: '2012-08-06',
     gender: 'Male',
     admissionDate: '2020-04-12'
@@ -987,7 +926,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '159 Mbale District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NOWAMANI SHARAPOVA.JPG',
     dateOfBirth: '2011-03-22',
     gender: 'Female',
     admissionDate: '2019-10-08'
@@ -1003,7 +941,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '753 Kabale District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/NTAMBAZI JEISON JOSEPH.JPG',
     dateOfBirth: '2016-11-15',
     gender: 'Male',
     admissionDate: '2024-02-20'
@@ -1019,7 +956,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '426 Kampala District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/NYABUN BITH.JPG',
     dateOfBirth: '2014-07-08',
     gender: 'Female',
     admissionDate: '2022-01-12'
@@ -1035,7 +971,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '891 Entebbe District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/NYESIGA OTHNIEL.JPG',
     dateOfBirth: '2010-04-25',
     gender: 'Male',
     admissionDate: '2018-06-18'
@@ -1051,7 +986,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '234 Mukono District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/ODEKE MIRACLE DANIEL.JPG',
     dateOfBirth: '2013-09-17',
     gender: 'Male',
     admissionDate: '2021-05-22'
@@ -1067,7 +1001,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '567 Jinja District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/OJAMBO DEVLIN PAUL.JPG',
     dateOfBirth: '2015-12-04',
     gender: 'Male',
     admissionDate: '2023-03-15'
@@ -1083,7 +1016,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '890 Masaka District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/OWORI CALVIN FRANKLIN.JPG',
     dateOfBirth: '2012-02-18',
     gender: 'Male',
     admissionDate: '2020-08-25'
@@ -1099,7 +1031,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '123 Mbarara District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/PRIA ANGEL.JPG',
     dateOfBirth: '2011-07-11',
     gender: 'Female',
     admissionDate: '2019-05-15'
@@ -1115,7 +1046,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '456 Fort Portal District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/RUKUNDO ELIZABETH.JPG',
     dateOfBirth: '2016-10-03',
     gender: 'Female',
     admissionDate: '2024-03-20'
@@ -1131,7 +1061,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '456 Fort Portal District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/RUKUNDO FAITH CANTY.JPG',
     dateOfBirth: '2014-05-19',
     gender: 'Female',
     admissionDate: '2022-03-08'
@@ -1147,7 +1076,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '789 Gulu District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/SSEMPA MALCOM MATHEW.JPG',
     dateOfBirth: '2010-01-12',
     gender: 'Male',
     admissionDate: '2018-07-25'
@@ -1163,7 +1091,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '321 Lira District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/SSEMPEBWA JONATHAN GIDEON.JPG',
     dateOfBirth: '2013-06-28',
     gender: 'Male',
     admissionDate: '2021-04-12'
@@ -1179,7 +1106,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '654 Soroti District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/SSENGENDO VICTORIA MIRACLE.JPG',
     dateOfBirth: '2015-09-16',
     gender: 'Female',
     admissionDate: '2023-02-22'
@@ -1195,7 +1121,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '987 Mbale District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/SSENGOOBA TENDO ENOCK.JPG',
     dateOfBirth: '2012-12-29',
     gender: 'Male',
     admissionDate: '2020-06-15'
@@ -1211,7 +1136,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '159 Kabale District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/SSENYIMBA DON ELIJAH.JPG',
     dateOfBirth: '2011-08-07',
     gender: 'Male',
     admissionDate: '2019-09-28'
@@ -1227,7 +1151,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '753 Kampala District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/SSENYONGA ELIJAH ADRIAN.JPG',
     dateOfBirth: '2016-03-24',
     gender: 'Male',
     admissionDate: '2024-01-18'
@@ -1243,7 +1166,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '426 Entebbe District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/SUKU HOLLY LAELLE.JPG',
     dateOfBirth: '2014-11-05',
     gender: 'Female',
     admissionDate: '2022-07-20'
@@ -1259,7 +1181,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '891 Mukono District, Uganda',
     fees: 'Pending',
     status: 'active',
-    photo: 'src/assets/photos/TAMARA AVA MULUNGI NDUGWA.JPG',
     dateOfBirth: '2010-10-18',
     gender: 'Female',
     admissionDate: '2018-03-05'
@@ -1275,7 +1196,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '234 Jinja District, Uganda',
     fees: 'Paid',
     status: 'active',
-    photo: 'src/assets/photos/TWEBAZE ESTHER.JPG',
     dateOfBirth: '2013-02-11',
     gender: 'Female',
     admissionDate: '2021-10-28'
@@ -1291,7 +1211,6 @@ export const pupilsDatabase: PupilRecord[] = [
     address: '567 Masaka District, Uganda',
     fees: 'Overdue',
     status: 'active',
-    photo: 'src/assets/photos/WASAJJA CHARLES DICKENS.JPG',
     dateOfBirth: '2015-04-02',
     gender: 'Male',
     admissionDate: '2023-03-18'
