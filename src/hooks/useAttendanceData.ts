@@ -9,7 +9,7 @@ interface AttendanceRecord {
   studentName: string;
   class: string;
   date: string;
-  status: 'present' | 'absent' | 'late' | 'excused';
+  status: 'present' | 'absent';
   timeIn?: string;
   timeOut?: string;
   remarks?: string;
@@ -17,56 +17,66 @@ interface AttendanceRecord {
 
 const STORAGE_KEY = 'attendance_records';
 
-// Generate attendance records from real student data
-const generateDefaultRecords = (): AttendanceRecord[] => {
-  const students = localStudentDatabase.users; // All students
-  const today = format(new Date(), 'yyyy-MM-dd');
-  const statuses: AttendanceRecord['status'][] = ['present', 'present', 'present', 'late', 'absent'];
+// Generate attendance records for a specific class
+const generateRecordsForClass = (className: string): AttendanceRecord[] => {
+  const students = localStudentDatabase.users.filter(user => 
+    user.role === 'pupil' && user.class === className
+  );
   
-  return students.map((student, index) => {
-    const status = statuses[index % statuses.length];
-    const record: AttendanceRecord = {
-      id: (index + 1).toString(),
-      studentId: student.id,
-      studentName: student.name,
-      class: student.class, // Use the original class name without transformation
-      date: today,
-      status,
-      timeIn: status === 'present' || status === 'late' ? '8:00 AM' : undefined,
-      timeOut: status === 'present' ? '3:30 PM' : undefined,
-      remarks: status === 'late' ? 'Transport delay' : status === 'absent' ? 'Sick leave' : undefined
-    };
-    return record;
-  });
+  const today = format(new Date(), 'yyyy-MM-dd');
+  
+  return students.map((student) => ({
+    id: student.id,
+    studentId: student.id,
+    studentName: student.name,
+    class: student.class,
+    date: today,
+    status: 'present' as const,
+    timeIn: '8:00 AM',
+    timeOut: '3:30 PM',
+    remarks: undefined
+  }));
 };
 
-const defaultRecords: AttendanceRecord[] = generateDefaultRecords();
-
-export const useAttendanceData = () => {
+export const useAttendanceData = (selectedClass?: string) => {
   const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  // Load data from localStorage on mount
+  // Load data efficiently based on selected class
   useEffect(() => {
-    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (!selectedClass) {
+      setAttendanceRecords([]);
+      return;
+    }
+
+    setLoading(true);
+    
+    // Quick load without artificial delay
+    const storageKey = `${STORAGE_KEY}_${selectedClass}`;
+    const savedData = localStorage.getItem(storageKey);
+    
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
         setAttendanceRecords(parsedData);
       } catch (error) {
         console.error('Error loading attendance data:', error);
-        setAttendanceRecords(defaultRecords);
+        setAttendanceRecords(generateRecordsForClass(selectedClass));
       }
     } else {
-      setAttendanceRecords(defaultRecords);
+      setAttendanceRecords(generateRecordsForClass(selectedClass));
     }
-  }, []);
+    
+    setLoading(false);
+  }, [selectedClass]);
 
   // Save data to localStorage whenever records change
   useEffect(() => {
-    if (attendanceRecords.length > 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(attendanceRecords));
+    if (attendanceRecords.length > 0 && selectedClass) {
+      const storageKey = `${STORAGE_KEY}_${selectedClass}`;
+      localStorage.setItem(storageKey, JSON.stringify(attendanceRecords));
     }
-  }, [attendanceRecords]);
+  }, [attendanceRecords, selectedClass]);
 
   const updateAttendanceStatus = (studentId: string, status: AttendanceRecord['status']) => {
     const currentTime = new Date().toLocaleTimeString('en-US', { 
@@ -81,7 +91,28 @@ export const useAttendanceData = () => {
           ? { 
               ...record, 
               status,
-              timeIn: status === 'present' || status === 'late' ? currentTime : '',
+              timeIn: status === 'present' ? currentTime : '',
+              timeOut: status === 'present' ? record.timeOut : ''
+            }
+          : record
+      )
+    );
+  };
+
+  const bulkUpdateAttendance = (studentIds: string[], status: AttendanceRecord['status']) => {
+    const currentTime = new Date().toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    });
+
+    setAttendanceRecords(prev => 
+      prev.map(record => 
+        studentIds.includes(record.studentId)
+          ? { 
+              ...record, 
+              status,
+              timeIn: status === 'present' ? currentTime : '',
               timeOut: status === 'present' ? record.timeOut : ''
             }
           : record
@@ -91,6 +122,8 @@ export const useAttendanceData = () => {
 
   return {
     attendanceRecords,
-    updateAttendanceStatus
+    loading,
+    updateAttendanceStatus,
+    bulkUpdateAttendance
   };
 };
