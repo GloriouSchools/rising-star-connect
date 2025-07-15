@@ -23,6 +23,7 @@ import { Facilities } from '@/components/pages/Facilities';
 import { Communication } from '@/components/pages/Communication';
 import { Help } from '@/components/pages/Help';
 import { Library } from '@/components/pages/Library';
+import Clubs from '@/components/pages/Clubs';
 import About from '@/pages/About';
 import WhyUs from '@/pages/WhyUs';
 import Contact from '@/pages/Contact';
@@ -224,6 +225,14 @@ export const AppRoutes: React.FC = () => {
             <ProtectedRoute>
               <Layout>
                 <Library />
+              </Layout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/clubs" element={
+            <ProtectedRoute>
+              <Layout>
+                <Clubs />
               </Layout>
             </ProtectedRoute>
           } />
