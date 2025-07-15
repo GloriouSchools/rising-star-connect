@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Users, Calendar, MapPin, Clock, Filter, Search } from "lucide-react";
+import { Users, Calendar, MapPin, Clock, Filter, Search, Eye } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ClubJoinDialog } from "@/components/clubs/ClubJoinDialog";
+import { ClubMembersDialog } from "@/components/clubs/ClubMembersDialog";
 
 interface Club {
   id: string;
@@ -109,6 +111,9 @@ const clubs: Club[] = [
 export default function Clubs() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [isJoinDialogOpen, setIsJoinDialogOpen] = useState(false);
+  const [isMembersDialogOpen, setIsMembersDialogOpen] = useState(false);
+  const [selectedClub, setSelectedClub] = useState<Club | null>(null);
 
   const filteredClubs = clubs.filter(club => {
     const matchesSearch = club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -143,6 +148,21 @@ export default function Clubs() {
     return acc;
   }, {} as Record<string, Club[]>);
 
+  const handleJoinClub = (club: Club) => {
+    setSelectedClub(club);
+    setIsJoinDialogOpen(true);
+  };
+
+  const handleViewMembers = (club: Club) => {
+    setSelectedClub(club);
+    setIsMembersDialogOpen(true);
+  };
+
+  const handleClubJoin = (clubId: string, memberData: any) => {
+    // In a real app, this would make an API call
+    console.log('Joining club:', clubId, memberData);
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
@@ -151,10 +171,16 @@ export default function Clubs() {
           <h1 className="text-3xl font-bold text-foreground">School Clubs</h1>
           <p className="text-muted-foreground">Explore extracurricular activities and join clubs</p>
         </div>
-        <Button className="flex items-center space-x-2">
-          <Users className="h-4 w-4" />
-          <span>Join Club</span>
-        </Button>
+        <div className="flex space-x-2">
+          <Button variant="outline" className="flex items-center space-x-2">
+            <Filter className="h-4 w-4" />
+            <span>Filters</span>
+          </Button>
+          <Button className="flex items-center space-x-2">
+            <Users className="h-4 w-4" />
+            <span>Browse Clubs</span>
+          </Button>
+        </div>
       </div>
 
       {/* Search and Filters */}
@@ -170,10 +196,12 @@ export default function Clubs() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Filter className="h-4 w-4" />
-              <span>Filter</span>
-            </Button>
+            <div className="flex space-x-2">
+              <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                <Filter className="h-4 w-4" />
+                <span>Advanced Filters</span>
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -248,6 +276,24 @@ export default function Clubs() {
                       {club.participants}/{club.maxParticipants}
                     </Badge>
                   </div>
+
+                  <div className="flex space-x-2 mt-3">
+                    <Button 
+                      size="sm" 
+                      className="flex-1"
+                      onClick={() => handleJoinClub(club)}
+                      disabled={club.participants >= club.maxParticipants}
+                    >
+                      {club.participants >= club.maxParticipants ? 'Full' : 'Join Club'}
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => handleViewMembers(club)}
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -292,6 +338,24 @@ export default function Clubs() {
                     <Badge className={getAvailabilityColor(club.participants, club.maxParticipants)}>
                       {club.participants}/{club.maxParticipants}
                     </Badge>
+                  </div>
+
+                  <div className="flex space-x-2 mt-3">
+                    <Button 
+                      size="sm" 
+                      className="flex-1"
+                      onClick={() => handleJoinClub(club)}
+                      disabled={club.participants >= club.maxParticipants}
+                    >
+                      {club.participants >= club.maxParticipants ? 'Full' : 'Join Club'}
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => handleViewMembers(club)}
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -338,6 +402,24 @@ export default function Clubs() {
                       {club.participants}/{club.maxParticipants}
                     </Badge>
                   </div>
+
+                  <div className="flex space-x-2 mt-3">
+                    <Button 
+                      size="sm" 
+                      className="flex-1"
+                      onClick={() => handleJoinClub(club)}
+                      disabled={club.participants >= club.maxParticipants}
+                    >
+                      {club.participants >= club.maxParticipants ? 'Full' : 'Join Club'}
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => handleViewMembers(club)}
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -354,6 +436,20 @@ export default function Clubs() {
           </CardContent>
         </Card>
       )}
+
+      {/* Dialogs */}
+      <ClubJoinDialog
+        isOpen={isJoinDialogOpen}
+        onClose={() => setIsJoinDialogOpen(false)}
+        club={selectedClub}
+        onJoin={handleClubJoin}
+      />
+      
+      <ClubMembersDialog
+        isOpen={isMembersDialogOpen}
+        onClose={() => setIsMembersDialogOpen(false)}
+        club={selectedClub}
+      />
     </div>
   );
 }
