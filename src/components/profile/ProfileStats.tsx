@@ -2,7 +2,8 @@
 import React, { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { localTeachersDatabase } from '@/data/teachersdata';
+import { localJuniorTeachersDatabase } from '@/data/juniorTeachersData';
+import { localKindergartenTeachersDatabase } from '@/data/kindergartenTeachersData';
 import { localStudentDatabase } from '@/data/studentdata';
 
 export const ProfileStats: React.FC = () => {
@@ -18,8 +19,9 @@ export const ProfileStats: React.FC = () => {
       ];
     }
 
-    // Find current teacher data
-    const teacherData = localTeachersDatabase.users.find(t => t.email === user.email);
+    // Find current teacher data (check both junior and kindergarten teachers)
+    const teacherData = localJuniorTeachersDatabase.users.find(t => t.email === user.email) ||
+                       localKindergartenTeachersDatabase.users.find(t => t.email === user.email);
     
     if (!teacherData) {
       return [

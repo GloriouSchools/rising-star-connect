@@ -1,7 +1,8 @@
 import { User } from '@/types/auth';
 import { ProfileData } from '@/types/profile';
 import { localStudentDatabase } from './studentdata';
-import { localTeachersDatabase } from './teachersdata';
+import { localJuniorTeachersDatabase } from './juniorTeachersData';
+import { localKindergartenTeachersDatabase } from './kindergartenTeachersData';
 import { localParentsDatabase } from './parentdata';
 import { localNonTeachingStaffDatabase } from './nonteachingstaff';
 import { localAdminDatabase } from './admindata';
@@ -26,8 +27,10 @@ export const userDatabase = {
       emergencyPhone: `+256 77${Math.floor(1000000 + Math.random() * 9000000)}`,
       accountStatus: 'active' as const
     })),
-    // Teachers
-    ...localTeachersDatabase.users,
+    // Junior Section Teachers
+    ...localJuniorTeachersDatabase.users,
+    // Kindergarten Teachers
+    ...localKindergartenTeachersDatabase.users,
     // Parents
     ...localParentsDatabase.users,
     // Non-teaching staff
@@ -64,9 +67,35 @@ export const userDatabase = {
         }
       ])
     ),
-    // Teachers profiles
+    // Junior Section Teachers profiles
     ...Object.fromEntries(
-      localTeachersDatabase.users.map(teacher => [
+      localJuniorTeachersDatabase.users.map(teacher => [
+        teacher.id,
+        {
+          firstName: teacher.firstName,
+          middleName: teacher.middleName,
+          lastName: teacher.lastName,
+          email: teacher.email,
+          phone: teacher.phone,
+          address: teacher.address,
+          title: teacher.title,
+          gender: teacher.gender,
+          subject: teacher.subject,
+          department: teacher.department,
+          qualification: teacher.qualification,
+          experience: teacher.experience,
+          joinDate: teacher.joinDate,
+          bio: teacher.bio,
+          emergencyContact: teacher.emergencyContact,
+          emergencyPhone: teacher.emergencyPhone,
+          avatar: teacher.avatar,
+          classesTaught: teacher.classesTaught
+        }
+      ])
+    ),
+    // Kindergarten Teachers profiles
+    ...Object.fromEntries(
+      localKindergartenTeachersDatabase.users.map(teacher => [
         teacher.id,
         {
           firstName: teacher.firstName,
