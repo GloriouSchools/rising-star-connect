@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ReportCard } from "./reports/ReportCard";
+import { ReportCard } from "./ReportCard";
 import { toast } from "sonner";
 
 interface StudentGrades {
@@ -166,26 +166,7 @@ export const ReportCardGenerator = () => {
       </Card>
 
       {/* Generated Report Card */}
-      {reportData && (
-        <ReportCard 
-          student={{
-            id: reportData.studentId,
-            name: reportData.studentName,
-            class: reportData.class
-          }}
-          term={reportData.term}
-          studentClass={reportData.class}
-          subjects={reportData.subjects.map(subject => ({
-            name: subject.name,
-            score: subject.marks,
-            grade: subject.grade,
-            remarks: subject.marks >= 85 ? "Excellent" : subject.marks >= 70 ? "Good" : "Needs Improvement"
-          }))}
-          totalMarks={reportData.totalMarks}
-          average={reportData.percentage}
-          overallGrade={reportData.overallGrade}
-        />
-      )}
+      {reportData && <ReportCard data={reportData} />}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import AnimatedInView from '../AnimatedInView';
-import { localStudentDatabase } from '@/data/userDatabase';
+import { localStudentDatabase } from '@/data/studentdata';
 
 export const SchoolOverview = () => {
   const [loading, setLoading] = useState(true);

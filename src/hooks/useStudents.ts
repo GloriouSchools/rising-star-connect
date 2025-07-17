@@ -2,8 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/contexts/ProfileContext';
-import { localJuniorStudentDatabase } from '@/data/juniorStudentData';
-import { localKindergartenStudentDatabase } from '@/data/kindergartenStudentData';
+import { localStudentDatabase } from '@/data/studentdata';
 
 export interface Student {
   id: string;
@@ -70,13 +69,13 @@ export const useStudents = () => {
 
   const loadStudents = () => {
     setLoading(true);
-    // Load student data from both junior and kindergarten databases
+    // Load real student data from studentdata.ts with progressive loading simulation
     setTimeout(() => {
-      const juniorStudents: Student[] = localJuniorStudentDatabase.users.map(student => ({
+      const realStudents: Student[] = localStudentDatabase.users.map(student => ({
         id: student.id,
         name: student.name,
         class: student.class,
-        age: Math.floor(Math.random() * 5) + 6, // Random age between 6-10 for junior school
+        age: Math.floor(Math.random() * 5) + 6, // Random age between 6-10 for primary school
         parent: 'Parent/Guardian',
         phone: `+256 77${Math.floor(1000000 + Math.random() * 9000000)}`,
         email: student.email,
@@ -85,24 +84,7 @@ export const useStudents = () => {
         dateOfBirth: student.dateOfBirth || '',
         schoolPayCode: student.schoolPayCode || ''
       }));
-      
-      const kindergartenStudents: Student[] = localKindergartenStudentDatabase.users.map(student => ({
-        id: student.id,
-        name: student.name,
-        class: student.class,
-        age: Math.floor(Math.random() * 3) + 3, // Random age between 3-5 for kindergarten
-        parent: 'Parent/Guardian',
-        phone: `+256 77${Math.floor(1000000 + Math.random() * 9000000)}`,
-        email: student.email,
-        address: 'Kampala, Uganda',
-        status: 'active' as const,
-        dateOfBirth: student.dateOfBirth || '',
-        schoolPayCode: student.schoolPayCode || ''
-      }));
-      
-      // Combine both junior and kindergarten students
-      const allStudentsData = [...juniorStudents, ...kindergartenStudents];
-      setAllStudents(allStudentsData);
+      setAllStudents(realStudents);
       setLoading(false);
     }, 1500); // Slightly longer for better loading UX demonstration
   };

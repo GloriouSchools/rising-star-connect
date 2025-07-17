@@ -3,8 +3,6 @@ import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Upload } from 'lucide-react';
-import { getTeacherInitials } from '@/utils/teacherAvatarUtils';
-import defaultAvatar from '@/assets/default-avatar.png';
 
 interface ProfileAvatarProps {
   avatar: string;
@@ -22,17 +20,15 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   onAvatarChange
 }) => {
   const getInitials = (first: string = '', last: string = '') => {
-    return getTeacherInitials(first, last);
+    return `${first.charAt(0)}${last.charAt(0)}`.toUpperCase();
   };
-
-  const displayAvatar = avatar || defaultAvatar;
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <div className="relative mb-4 cursor-pointer">
           <Avatar className="w-24 h-24 text-3xl">
-            <AvatarImage src={displayAvatar} alt="User avatar" />
+            <AvatarImage src={avatar} alt="User avatar" />
             <AvatarFallback>{getInitials(firstName, lastName)}</AvatarFallback>
           </Avatar>
           {isEditing && (
@@ -51,7 +47,7 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
       </DialogTrigger>
       <DialogContent className="p-0 border-0 max-w-2xl bg-transparent">
         <img 
-          src={displayAvatar} 
+          src={avatar} 
           alt="User avatar zoomed" 
           className="w-full h-auto rounded-lg max-h-[85vh] object-contain" 
         />
