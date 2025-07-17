@@ -1,8 +1,8 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { X, Download, Printer, Loader2 } from 'lucide-react';
+import { X, Download, Printer } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
 interface Student {
@@ -20,7 +20,6 @@ interface MarksheetGeneratorProps {
 
 export const MarksheetGenerator = ({ student, term, class: studentClass, onClose }: MarksheetGeneratorProps) => {
   const marksheetRef = useRef<HTMLDivElement>(null);
-  const [isDownloading, setIsDownloading] = useState(false);
 
   // Sample subjects and grades data
   const subjects = [
@@ -46,23 +45,16 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
     });
   };
 
-  const handleDownload = async () => {
-    setIsDownloading(true);
-    try {
-      toast({
-        title: "Download Started",
-        description: "Marksheet PDF is being generated.",
-      });
-      // Simulate download delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-    } finally {
-      setIsDownloading(false);
-    }
+  const handleDownload = () => {
+    toast({
+      title: "Download Started",
+      description: "Marksheet PDF is being generated.",
+    });
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-transparent rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-xl font-semibold">Student Marksheet</h2>
           <div className="flex gap-2">
@@ -70,13 +62,9 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
               <Printer className="h-4 w-4 mr-2" />
               Print
             </Button>
-            <Button variant="outline" size="sm" onClick={handleDownload} disabled={isDownloading}>
-              {isDownloading ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              ) : (
-                <Download className="h-4 w-4 mr-2" />
-              )}
-              {isDownloading ? 'Generating...' : 'Download PDF'}
+            <Button variant="outline" size="sm" onClick={handleDownload}>
+              <Download className="h-4 w-4 mr-2" />
+              Download PDF
             </Button>
             <Button variant="ghost" size="sm" onClick={onClose}>
               <X className="h-4 w-4" />
@@ -84,11 +72,11 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
           </div>
         </div>
 
-        <div ref={marksheetRef} className="p-8 bg-transparent relative">
+        <div ref={marksheetRef} className="p-8 bg-white relative">
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
             <img 
-              src="/lovable-uploads/c3832565-30fb-42eb-a53b-cbe46e30426e.png" 
+              src="/lovable-uploads/9b8d1db4-de27-4c75-92aa-8293e0d9a24c.png" 
               alt="Watermark"
               className="w-96 h-96 object-contain"
             />
@@ -149,7 +137,7 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
           <div className="mb-6 relative z-10">
             <table className="w-full border-collapse border border-gray-400">
               <thead>
-                <tr className="bg-transparent">
+                <tr className="bg-blue-50">
                   <th className="border border-gray-400 p-2 text-left">Subject</th>
                   <th className="border border-gray-400 p-2 text-center">Score (%)</th>
                   <th className="border border-gray-400 p-2 text-center">Grade</th>
@@ -158,14 +146,14 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
               </thead>
               <tbody>
                 {subjects.map((subject, index) => (
-                  <tr key={index} className="hover:bg-transparent">
+                  <tr key={index} className="hover:bg-gray-50">
                     <td className="border border-gray-400 p-2">{subject.name}</td>
                     <td className="border border-gray-400 p-2 text-center">{subject.score}</td>
                     <td className="border border-gray-400 p-2 text-center font-semibold">{subject.grade}</td>
                     <td className="border border-gray-400 p-2 text-center">{subject.remarks}</td>
                   </tr>
                 ))}
-                <tr className="bg-transparent font-semibold">
+                <tr className="bg-blue-50 font-semibold">
                   <td className="border border-gray-400 p-2">TOTAL</td>
                   <td className="border border-gray-400 p-2 text-center">{totalMarks}</td>
                   <td className="border border-gray-400 p-2 text-center">{overallGrade}</td>
@@ -202,7 +190,7 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
           {/* Teacher Comments */}
           <div className="mb-6 relative z-10">
             <h3 className="font-semibold mb-2">Class Teacher's Comments:</h3>
-            <div className="border border-gray-300 p-3 min-h-[60px] bg-transparent">
+            <div className="border border-gray-300 p-3 min-h-[60px] bg-gray-50">
               <p className="text-sm">
                 {student?.name} has shown excellent performance this term. Keep up the good work in Mathematics and continue reading more to improve English comprehension skills.
               </p>

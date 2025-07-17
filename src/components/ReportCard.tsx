@@ -36,13 +36,13 @@ export const ReportCard = ({ data }: ReportCardProps) => {
   };
 
   return (
-    <Card className="max-w-4xl mx-auto shadow-2xl border-0 bg-transparent print:shadow-none print:border">
+    <Card className="max-w-4xl mx-auto shadow-2xl border-0 bg-white print:shadow-none print:border">
       <CardContent className="p-0">
         <div className="relative overflow-hidden">
           {/* Watermark - Full Page */}
           <div className="absolute inset-0 pointer-events-none z-0">
             <img 
-              src="/lovable-uploads/c3832565-30fb-42eb-a53b-cbe46e30426e.png" 
+              src="/lovable-uploads/9b8d1db4-de27-4c75-92aa-8293e0d9a24c.png" 
               alt="School Logo Watermark"
               className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-5 object-contain"
               onError={(e) => {

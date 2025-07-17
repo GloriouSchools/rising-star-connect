@@ -302,7 +302,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
     };
 
     return (
-      <div className="relative bg-transparent border-2 border-gray-300 shadow-lg overflow-hidden">
+      <div className="relative bg-white border-2 border-gray-300 shadow-lg overflow-hidden">
         {/* Watermark - Full Page */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <img 
@@ -315,7 +315,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
           />
         </div>
         {/* Header */}
-        <div className="relative z-10 text-center p-4 border-b-2 border-blue-800 bg-transparent">
+        <div className="relative z-10 text-center p-4 border-b-2 border-blue-800 bg-white">
           <div className="flex items-center justify-between mb-3">
             <img 
               src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" 
@@ -447,7 +447,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
         </div>
 
         {/* Download button */}
-        <div className="relative z-10 text-center p-4 bg-transparent border-t">
+        <div className="relative z-10 text-center p-4 bg-gray-100 border-t">
           <p className="text-xs text-gray-600">This is a computer-generated report. For queries, contact the school administration.</p>
           <button
             onClick={downloadReportCard}
