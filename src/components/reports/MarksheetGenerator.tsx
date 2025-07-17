@@ -88,7 +88,7 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
             <img 
-              src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" 
+              src="/lovable-uploads/c3832565-30fb-42eb-a53b-cbe46e30426e.png" 
               alt="Watermark"
               className="w-96 h-96 object-contain"
             />
