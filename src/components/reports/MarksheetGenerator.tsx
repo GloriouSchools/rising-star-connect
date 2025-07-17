@@ -1,8 +1,8 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { X, Download, Printer } from 'lucide-react';
+import { X, Download, Printer, Loader2 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
 interface Student {
@@ -20,6 +20,7 @@ interface MarksheetGeneratorProps {
 
 export const MarksheetGenerator = ({ student, term, class: studentClass, onClose }: MarksheetGeneratorProps) => {
   const marksheetRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   // Sample subjects and grades data
   const subjects = [
@@ -45,11 +46,18 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
     });
   };
 
-  const handleDownload = () => {
-    toast({
-      title: "Download Started",
-      description: "Marksheet PDF is being generated.",
-    });
+  const handleDownload = async () => {
+    setIsDownloading(true);
+    try {
+      toast({
+        title: "Download Started",
+        description: "Marksheet PDF is being generated.",
+      });
+      // Simulate download delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -62,9 +70,13 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
               <Printer className="h-4 w-4 mr-2" />
               Print
             </Button>
-            <Button variant="outline" size="sm" onClick={handleDownload}>
-              <Download className="h-4 w-4 mr-2" />
-              Download PDF
+            <Button variant="outline" size="sm" onClick={handleDownload} disabled={isDownloading}>
+              {isDownloading ? (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <Download className="h-4 w-4 mr-2" />
+              )}
+              {isDownloading ? 'Generating...' : 'Download PDF'}
             </Button>
             <Button variant="ghost" size="sm" onClick={onClose}>
               <X className="h-4 w-4" />
@@ -76,7 +88,7 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
             <img 
-              src="/lovable-uploads/9b8d1db4-de27-4c75-92aa-8293e0d9a24c.png" 
+              src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" 
               alt="Watermark"
               className="w-96 h-96 object-contain"
             />
