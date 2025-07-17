@@ -94,7 +94,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
         // Load logo
         const logoImg = new Image();
         logoImg.crossOrigin = 'anonymous';
-        logoImg.src = 'https://gloriouschools.github.io/rising-star-connect/schoologo.png';
+        logoImg.src = '/lovable-uploads/9b8d1db4-de27-4c75-92aa-8293e0d9a24c.png';
         
         logoImg.onload = () => {
           // Add full page watermark with reduced opacity
@@ -306,7 +306,7 @@ export const ProfessionalReportCard: React.FC<ProfessionalReportCardProps> = ({ 
         {/* Watermark - Full Page */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <img 
-            src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" 
+            src="/lovable-uploads/9b8d1db4-de27-4c75-92aa-8293e0d9a24c.png" 
             alt="School Logo Watermark"
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-5 object-contain"
             onError={(e) => {

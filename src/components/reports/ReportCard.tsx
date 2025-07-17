@@ -235,8 +235,8 @@ export const ReportCard = ({
       {/* Watermark */}
       <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
         <img 
-          src="https://gloriouschools.github.io/rising-star-connect/schoologo.png" 
-          alt="Watermark" 
+          src="/lovable-uploads/9b8d1db4-de27-4c75-92aa-8293e0d9a24c.png" 
+          alt="Watermark"
           className="w-96 h-96 object-contain"
         />
       </div>
