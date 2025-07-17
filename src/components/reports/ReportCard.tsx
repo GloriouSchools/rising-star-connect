@@ -231,7 +231,7 @@ export const ReportCard = ({
   };
 
   return (
-    <div className="relative bg-white border-2 border-gray-300 shadow-lg overflow-hidden">
+    <div className="relative bg-transparent border-2 border-gray-300 shadow-lg overflow-hidden">
       {/* Watermark */}
       <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
         <img 
@@ -258,7 +258,7 @@ export const ReportCard = ({
 
       {/* Student Information */}
       <section className="mb-8 relative z-10">
-        <div className="bg-white/80 p-6 rounded-lg border">
+        <div className="bg-transparent p-6 rounded-lg border">
           <h3 className="font-semibold text-lg mb-4 text-blue-900">Student Information</h3>
           <div className="grid grid-cols-2 gap-x-8 gap-y-4">
             <div className="flex items-baseline">
@@ -291,9 +291,9 @@ export const ReportCard = ({
 
       {/* Grades Table */}
       <section className="mb-8 relative z-10">
-        <div className="bg-white/80 rounded-lg border overflow-hidden">
+        <div className="bg-transparent rounded-lg border overflow-hidden">
           <table className="w-full">
-            <thead className="bg-blue-50/80">
+            <thead className="bg-transparent">
               <tr>
                 <th className="p-4 text-left font-semibold text-gray-700">Subject</th>
                 <th className="p-4 text-center font-semibold text-gray-700">Score (%)</th>
@@ -303,7 +303,7 @@ export const ReportCard = ({
             </thead>
             <tbody>
               {subjects.map((subject, index) => (
-                <tr key={index} className="border-b border-gray-200 last:border-b-0 hover:bg-gray-50/50 transition-colors">
+                <tr key={index} className="border-b border-gray-200 last:border-b-0 hover:bg-transparent transition-colors">
                   <td className="p-4">{subject.name}</td>
                   <td className="p-4 text-center">{subject.score}</td>
                   <td className="p-4 text-center font-bold text-lg">{subject.grade}</td>
@@ -317,7 +317,7 @@ export const ReportCard = ({
       
       {/* Summary and Performance */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 relative z-10">
-        <div className="p-6 bg-white/80 rounded-lg border">
+        <div className="p-6 bg-transparent rounded-lg border">
           <h3 className="font-semibold text-lg mb-4 text-center text-blue-900">Overall Performance</h3>
           <div className="text-center">
             <p className="text-sm text-gray-600">Total Marks</p>
@@ -327,13 +327,13 @@ export const ReportCard = ({
             <p className="text-sm text-gray-600">Average Score</p>
             <p className="text-3xl font-bold text-gray-800">{average}%</p>
           </div>
-          <div className="text-center bg-blue-100 rounded-lg p-3">
+          <div className="text-center bg-transparent rounded-lg p-3">
             <p className="text-sm font-semibold text-blue-800">Overall Grade</p>
             <p className="text-4xl font-extrabold text-blue-900">{overallGrade}</p>
           </div>
         </div>
 
-        <div className="p-6 bg-white/80 rounded-lg border">
+        <div className="p-6 bg-transparent rounded-lg border">
           <h3 className="font-semibold text-lg mb-4 text-blue-900">Grading Scale</h3>
           <div className="text-sm space-y-2 text-gray-700">
             <div className="flex justify-between"><span>A+: 90-100%</span> <span>Excellent</span></div>
@@ -345,7 +345,7 @@ export const ReportCard = ({
           </div>
         </div>
 
-        <div className="p-6 bg-white/80 rounded-lg border">
+        <div className="p-6 bg-transparent rounded-lg border">
           <h3 className="font-semibold text-lg mb-4 text-blue-900">Class Performance</h3>
           <div className="text-sm space-y-3 text-gray-700">
             <div className="flex justify-between items-center">
@@ -366,9 +366,9 @@ export const ReportCard = ({
 
       {/* Teacher Comments */}
       <section className="mb-8 relative z-10">
-        <div className="bg-white/80 p-6 rounded-lg border">
+        <div className="bg-transparent p-6 rounded-lg border">
           <h3 className="font-semibold text-lg mb-3 text-blue-900">Class Teacher's Comments</h3>
-          <div className="bg-gray-50/70 p-4 rounded-md min-h-[80px]">
+          <div className="bg-transparent p-4 rounded-md min-h-[80px]">
             <p className="text-sm text-gray-800">
               {student?.name} has shown excellent performance this term. Keep up the good work and continue striving for excellence.
             </p>
@@ -407,7 +407,7 @@ export const ReportCard = ({
             className="w-full h-auto object-contain"
           />
         </div>
-        <div className="text-center p-4 bg-gray-100 border-t">
+        <div className="text-center p-4 bg-transparent border-t">
           <p className="text-xs text-gray-600 mb-4">This is a computer-generated report. For queries, contact the school administration.</p>
           <p className="text-xs text-gray-500 mb-4">Generated on {new Date().toLocaleDateString()} • Report ID: MS{Date.now()}</p>
           <button

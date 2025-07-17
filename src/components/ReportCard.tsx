@@ -36,7 +36,7 @@ export const ReportCard = ({ data }: ReportCardProps) => {
   };
 
   return (
-    <Card className="max-w-4xl mx-auto shadow-2xl border-0 bg-white print:shadow-none print:border">
+    <Card className="max-w-4xl mx-auto shadow-2xl border-0 bg-transparent print:shadow-none print:border">
       <CardContent className="p-0">
         <div className="relative overflow-hidden">
           {/* Watermark - Full Page */}

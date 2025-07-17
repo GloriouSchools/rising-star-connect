@@ -54,7 +54,7 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+      <div className="bg-transparent rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-xl font-semibold">Student Marksheet</h2>
           <div className="flex gap-2">
@@ -72,7 +72,7 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
           </div>
         </div>
 
-        <div ref={marksheetRef} className="p-8 bg-white relative">
+        <div ref={marksheetRef} className="p-8 bg-transparent relative">
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
             <img 
@@ -137,7 +137,7 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
           <div className="mb-6 relative z-10">
             <table className="w-full border-collapse border border-gray-400">
               <thead>
-                <tr className="bg-blue-50">
+                <tr className="bg-transparent">
                   <th className="border border-gray-400 p-2 text-left">Subject</th>
                   <th className="border border-gray-400 p-2 text-center">Score (%)</th>
                   <th className="border border-gray-400 p-2 text-center">Grade</th>
@@ -146,14 +146,14 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
               </thead>
               <tbody>
                 {subjects.map((subject, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
+                  <tr key={index} className="hover:bg-transparent">
                     <td className="border border-gray-400 p-2">{subject.name}</td>
                     <td className="border border-gray-400 p-2 text-center">{subject.score}</td>
                     <td className="border border-gray-400 p-2 text-center font-semibold">{subject.grade}</td>
                     <td className="border border-gray-400 p-2 text-center">{subject.remarks}</td>
                   </tr>
                 ))}
-                <tr className="bg-blue-50 font-semibold">
+                <tr className="bg-transparent font-semibold">
                   <td className="border border-gray-400 p-2">TOTAL</td>
                   <td className="border border-gray-400 p-2 text-center">{totalMarks}</td>
                   <td className="border border-gray-400 p-2 text-center">{overallGrade}</td>
@@ -190,7 +190,7 @@ export const MarksheetGenerator = ({ student, term, class: studentClass, onClose
           {/* Teacher Comments */}
           <div className="mb-6 relative z-10">
             <h3 className="font-semibold mb-2">Class Teacher's Comments:</h3>
-            <div className="border border-gray-300 p-3 min-h-[60px] bg-gray-50">
+            <div className="border border-gray-300 p-3 min-h-[60px] bg-transparent">
               <p className="text-sm">
                 {student?.name} has shown excellent performance this term. Keep up the good work in Mathematics and continue reading more to improve English comprehension skills.
               </p>
