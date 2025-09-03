@@ -467,6 +467,10 @@ export type Database = {
           subject: string
         }[]
       }
+      get_user_display_name: {
+        Args: { user_id: string }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
